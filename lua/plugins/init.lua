@@ -120,4 +120,15 @@ return {
       })
     end,
   },
+
+  -- Hop plugin
+  {
+    "hadronized/hop.nvim",
+    keys = {
+      { "s", "<cmd>HopWord<cr>", desc = "Hop to character" },
+    },
+    config = function()
+      require("hop").setup()
+    end,
+  },
 }
