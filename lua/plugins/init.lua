@@ -6,6 +6,26 @@ return {
   { import = "nvgoog.google.telescope" },
   { import = "nvgoog.google.glugins" },
   { import = "nvgoog.google.lsp" },
+  { import = "nvgoog.google.cmp" },
+
+  -- Figtree (TUI for Fig)
+  {
+    url = "sso://user/jackcogdill/nvim-figtree",
+    keys = {
+      {
+        "<leader>sf",
+        function()
+          require("figtree").toggle()
+        end,
+        desc = "Toggle Figtree",
+      },
+    },
+    opts = {
+      ui = {
+        border = "rounded",
+      },
+    },
+  },
 
   -- Disable Mason (Google uses internal binaries, not Mason)
   { "williamboman/mason.nvim", enabled = false },
@@ -121,14 +141,93 @@ return {
     end,
   },
 
-  -- Hop plugin
+  -- Flash.nvim (Modern jump and treesitter selection)
   {
-    "hadronized/hop.nvim",
+    "folke/flash.nvim",
+    event = "VeryLazy",
+    opts = {},
     keys = {
-      { "s", "<cmd>HopWord<cr>", desc = "Hop to character" },
+      { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
+      { "S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
+      { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
     },
-    config = function()
-      require("hop").setup()
+  },
+
+  -- Experimental cmp-buganizer
+  {
+    "vicentecaycedo/cmp-buganizer",
+    url = "sso://user/vicentecaycedo/cmp-buganizer",
+    dependencies = { "hrsh7th/nvim-cmp" },
+  },
+
+  -- Add buganizer to cmp sources
+  {
+    "hrsh7th/nvim-cmp",
+    opts = function(_, opts)
+      opts.sources = opts.sources or {}
+      table.insert(opts.sources, { name = "buganizer" })
+      return opts
     end,
+  },
+  {
+    name = "critique-nvim",
+    url = "sso://googler@user/cnieves/critique-nvim",
+    dependencies = {
+        "rktjmp/time-ago.vim",
+        "nvim-lua/plenary.nvim",
+        "nvim-telescope/telescope.nvim",
+        "runiq/neovim-throttle-debounce",
+    },
+    -- this is recommended so comment fetching can occur in the background immediately
+    lazy = true,
+    config = function()
+        -- Here are all the options and their default values:
+        require("critique.comments").setup({
+        -- Automatically fetch comments after setup and on BufEnter events.
+        auto_fetch = true,
+        -- If true, unresolved comments are automatically rendered when a buffer is opened.
+        auto_render = true,
+        -- Debounce time for throttling stubby requests to Critique, in milliseconds. Default is 10 seconds.
+        debounce = 10000,
+        display = {
+            -- Max width in character to render a comment's text before wrapping to a newline.
+            max_comment_width = 110,
+            -- Render comment threads marked as resolved?
+            render_resolved_threads = true,
+        },
+        -- Debug message level
+        debug = 0,
+        -- Whether or not the new comments notification includes file names.
+        verbose_notifications = true,
+        })
+    end,
+  },
+  {
+    url = "sso://user/maxcchuang/unclash.nvim",
+    lazy = false, -- unclash is lazy-loaded by default
+    opts = {},
+  },
+
+  -- hgdiff.nvim for side-by-side hg diffs
+  {
+    "huangeddie/hgdiff.nvim",
+    url = "sso://user/huangeddie/hgdiff.nvim",
+    -- Recommended key bindings. Change to however you like
+    keys = {
+      {
+        "<leader>hd",
+        "<cmd>HgDiff<cr>",
+        desc = "Hg Diff (Working Copy)",
+      },
+      {
+        "<leader>hD",
+        "<cmd>HgPDiff<cr>",
+        desc = "Hg Diff (Parent vs Grandparent)",
+      },
+      -- Revert Hunk: Normal mode
+      { "<leader>hr", "<cmd>HgRevertHunk<cr>", desc = "Hg Revert Hunk" },
+      -- Revert Hunk: Visual mode (for partial hunks)
+      { "<leader>hr", ":HgRevertHunk<cr>", mode = "v", desc = "Hg Revert Selection" },
+    },
   },
 }
