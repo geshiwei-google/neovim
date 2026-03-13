@@ -4,6 +4,7 @@
   "base46": { "branch": "v3.0", "commit": "884b990dcdbe07520a0892da6ba3e8d202b46337" },
   "buganizer-utils.nvim": { "branch": "main", "commit": "a4af5239a71dd1b6fc2b1b9656f45065865b90e6" },
   "buganizer.nvim": { "branch": "main", "commit": "59b89e88e12a6eec3cf2a5eab2d82908572402d2" },
+  "catppuccin": { "branch": "main", "commit": "12c004cde3f36cb1d57242f1e6aac46b09a0e5b4" },
   "cmp-async-path": { "branch": "main", "commit": "f8af3f726e07f2e9d37672eaa9102581aefce149" },
   "cmp-buffer": { "branch": "main", "commit": "3022dbc9166796b644a841a02de8dd1cc1d311fa" },
   "cmp-googlers.nvim": { "branch": "main", "commit": "ee6816fbe8076632d996c8b470418174747ccd16" },

@@ -26,12 +26,16 @@ return {
       },
     },
   },
-
   -- Disable Mason (Google uses internal binaries, not Mason)
-  { "williamboman/mason.nvim", enabled = false },
+  { "williamboman/mason.nvim", enabled = true },
 
-  -- Disable Formatter (Google uses Cider/glaze/build_cleaner)
-  { "stevearc/conform.nvim", enabled = false },
+  {
+    "conform.nvim",
+    opts = {
+      -- Disable completely
+      auto_format = vim.NIL,
+    }
+  },
 
   -----------------------------------------------------------------------------
   -- TELESCOPE CONFIGURATION (Centered + Prompt on Top)
@@ -230,4 +234,5 @@ return {
       { "<leader>hr", ":HgRevertHunk<cr>", mode = "v", desc = "Hg Revert Selection" },
     },
   },
+  { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
 }
