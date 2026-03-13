@@ -12,6 +12,9 @@ M.base46 = {
 		Comment = { italic = true },
 		["@comment"] = { italic = true },
 		Visual = { bg = "#88A8B5", fg = "#ffffff" },
+		StatusLine = { bg = "#24273a" },
+		StatusLineNC = { bg = "#24273a" },
+		St_EmptySpace = { bg = "#24273a" },
 	},
 }
 
